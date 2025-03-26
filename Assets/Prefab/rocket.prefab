@@ -244,4 +244,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 200
   bulletSpeed: 5
+  explosionDelay: 0.2
+  knockbackForce: 50
   deathEffect: {fileID: 7456269041102843715, guid: bf7effe7338dbe64ebc44ab8633c3aee, type: 3}

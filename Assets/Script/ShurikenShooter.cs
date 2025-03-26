@@ -24,7 +24,7 @@ public class ShurikenShooter : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && canThrow && currentShurikens > 0) // Press 'F' to throw
+        if (Input.GetMouseButtonDown(0) && canThrow && currentShurikens > 0) //Click to throw
         {
             ThrowShuriken();
         }
@@ -36,25 +36,34 @@ public class ShurikenShooter : MonoBehaviour
         currentShurikens--;
 
         if (animator != null)
-        
-        animator.SetTrigger("Shoot");
+            animator.SetTrigger("Shoot");
+
         // Instantiate the shuriken at the fire point
-        GameObject shuriken = Instantiate(shurikenPrefab, firePoint.position, firePoint.rotation);
+        GameObject shuriken = Instantiate(shurikenPrefab, firePoint.position, Quaternion.identity);
 
         // Get the Rigidbody2D and set its velocity
         Rigidbody2D rb = shuriken.GetComponent<Rigidbody2D>();
 
-        
+        // Get Mouse Position in World Coordinates
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        float direction = playerMovement.GetFacingDirection();
-        rb.velocity = new Vector2(direction * shurikenSpeed, 0f);
+        // Calculate Direction to Mouse
+        Vector2 direction = (mousePosition - (Vector2)firePoint.position).normalized;
 
-        // Optionally, destroy shuriken after a few seconds
+        // Set Velocity
+        rb.velocity = direction * shurikenSpeed;
+
+        // Rotate Shuriken to Face Direction
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        shuriken.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        // Destroy shuriken after a few seconds
         Destroy(shuriken, 3f);
 
         // Start cooldown
         StartCoroutine(ThrowCooldown());
     }
+
 
     private IEnumerator ThrowCooldown()
     {
