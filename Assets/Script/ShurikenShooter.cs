@@ -38,6 +38,9 @@ public class ShurikenShooter : MonoBehaviour
         if (animator != null)
             animator.SetTrigger("Shoot");
 
+
+        AudioManager.Instance.PlaySFX("Shuriken");
+
         // Instantiate the shuriken at the fire point
         GameObject shuriken = Instantiate(shurikenPrefab, firePoint.position, Quaternion.identity);
 

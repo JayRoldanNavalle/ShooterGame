@@ -30,17 +30,18 @@ public class EnemyBullet : MonoBehaviour
             PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                playerHealth.TakeDamage(Random.Range(2, 10)); // Adjust damage as needed
+                playerHealth.TakeDamage(1); // Adjust damage as needed
 
                 Debug.Log("nag tama sa tao");
             }
 
-
+            AudioManager.Instance.PlaySFX("LaserEnd");
             Destroy(gameObject); // Destroy bullet on impact
             Instantiate(deathEffect, transform.position, transform.rotation);
         }
         if (collision.CompareTag("Ground") )
         {
+            AudioManager.Instance.PlaySFX("LaserEnd");
             Destroy(gameObject); // Destroy bullet if it hits the environments
             Debug.Log("nag tama sa Ground");
             Instantiate(deathEffect, transform.position, transform.rotation);

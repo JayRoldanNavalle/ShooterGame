@@ -8,6 +8,8 @@ public class DroneHealth : MonoBehaviour
     private int currentHealth;
     private bool isDead = false;
 
+   
+
     [Header("UI")]
     public Slider healthBar; // Assign a UI Slider in Inspector
 
@@ -29,7 +31,7 @@ public class DroneHealth : MonoBehaviour
         if (isDead) return;
 
         currentHealth -= damage;
-        Debug.Log($"Buhay Ng Drone {currentHealth -= damage}");
+        Debug.Log($"Buhay Ng Drone {currentHealth}");
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Prevents negative health
 
         if (healthBar != null)
@@ -38,9 +40,22 @@ public class DroneHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
-            
+
+            KillToNextLvl killToNextLvl = GameObject.Find("KillToNextLvl").GetComponent<KillToNextLvl>();
+
+            if (killToNextLvl != null)
+            {
+                killToNextLvl.AddKill(1);
+                Debug.Log("Kill added successfully.");
+            }
+            else
+            {
+                Debug.LogError("KillToNextLvl component is missing on the GameObject!");
+            }
         }
     }
+
+
 
     public void Heal(int amount)
     {
@@ -56,9 +71,11 @@ public class DroneHealth : MonoBehaviour
     private void Die()
     {
         isDead = true;
+        
         Debug.Log("Drone has died!");
 
         Destroy(gameObject);
+        
         Instantiate(deathEffect, transform.position, transform.rotation);
         
     }

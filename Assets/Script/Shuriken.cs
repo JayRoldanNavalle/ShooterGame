@@ -26,6 +26,7 @@ public class Shuriken : MonoBehaviour
 
             enemyBoss.TakeDamage(Random.Range(3, 10));
             Debug.Log("Shuriken hit Boss and dealt damage!"); // Debugging
+            AudioManager.Instance.PlaySFX("LaserEnd");
             Destroy(gameObject);
             Instantiate(deathEffect, transform.position, transform.rotation);
         }
@@ -35,15 +36,17 @@ public class Shuriken : MonoBehaviour
             DroneHealth droneHealth = collision.GetComponent<DroneHealth>();
             if (droneHealth != null)
             {
-                droneHealth.TakeDamage(3); // Apply damage
+                droneHealth.TakeDamage(5); // Apply damage
                 Debug.Log("Shuriken hit Drone!");
             }
+            AudioManager.Instance.PlaySFX("LaserEnd");
             DestroyShuriken();
         }
         
         else if (collision.CompareTag("Ground"))
         {
             Debug.Log("Shuriken hit the Ground!");
+            AudioManager.Instance.PlaySFX("LaserEnd");
             DestroyShuriken();
         }
     }

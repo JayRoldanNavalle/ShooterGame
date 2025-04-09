@@ -44,6 +44,10 @@ public class PlayerMovement : MonoBehaviour
 
     private Animator animator; // Reference to Animator
 
+
+    bool wasGrounded = false; // Add this at the top of your script (outside Update)
+
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -72,14 +76,25 @@ public class PlayerMovement : MonoBehaviour
         isTouchingWall = Physics2D.OverlapCircle(wallCheck.position, 0.1f, groundLayer);
 
         // Coyote Time
+        // Coyote Time
         if (isGrounded)
         {
+            if (!wasGrounded)
+            {
+                // Just landed!
+                AudioManager.Instance.PlaySFX("land");
+            }
+
             coyoteTimeCounter = coyoteTime;
         }
         else
         {
             coyoteTimeCounter -= Time.deltaTime;
         }
+
+        // At the end of Update(), update the previous state
+        wasGrounded = isGrounded;
+
 
         // Jump Buffer
         if (Input.GetButtonDown("Jump"))
@@ -149,6 +164,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        AudioManager.Instance.PlaySFX("dash");
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         animator.SetTrigger("Jump"); // Play jump animation
         coyoteTimeCounter = 0f;
@@ -161,6 +177,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 force = new Vector2(-wallJumpDirection.x * moveSpeed, wallJumpDirection.y * wallJumpForce);
         rb.velocity = force;
+        AudioManager.Instance.PlaySFX("dash");
         animator.SetTrigger("Jump");
     }
 
@@ -174,6 +191,8 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
         isDashing = true;
         trail.enabled = true;
+
+       
 
         float dashDirection = facingRight ? 1f : -1f;
         if (moveInput != 0)

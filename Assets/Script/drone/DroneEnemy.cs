@@ -154,6 +154,7 @@ public class DroneEnemy : MonoBehaviour
 
     private void Shoot()
     {
+        AudioManager.Instance.PlaySFX("laser");
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.velocity = firePoint.right * bulletSpeed; // Shoot bullet in the direction of firePoint
