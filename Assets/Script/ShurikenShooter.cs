@@ -24,10 +24,14 @@ public class ShurikenShooter : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && canThrow && currentShurikens > 0) //Click to throw
+        if (Time.timeScale == 1)
         {
-            ThrowShuriken();
+            if (Input.GetMouseButtonDown(0) && canThrow && currentShurikens > 0) //Click to throw
+            {
+                ThrowShuriken();
+            }
         }
+        
     }
 
     private void ThrowShuriken()
