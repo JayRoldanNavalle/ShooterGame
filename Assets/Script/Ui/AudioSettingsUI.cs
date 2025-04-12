@@ -16,8 +16,8 @@ public class AudioSettingsUI : MonoBehaviour
         // Set default UI values from AudioManager
         bgmSlider.value = AudioManager.Instance.bgmVolume;
         sfxSlider.value = AudioManager.Instance.sfxVolume;
-        bgmToggle.isOn = !AudioManager.Instance.bgmSource.mute;
-        sfxToggle.isOn = !AudioManager.Instance.sfxSource.mute;
+        bgmToggle.isOn = AudioManager.Instance.bgmSource.mute;
+        sfxToggle.isOn = AudioManager.Instance.sfxSource.mute;
 
         // Add listeners
         bgmSlider.onValueChanged.AddListener(SetBGMVolume);
@@ -38,11 +38,11 @@ public class AudioSettingsUI : MonoBehaviour
 
     public void ToggleBGM(bool isOn)
     {
-        AudioManager.Instance.ToggleBGM(isOn);
+        AudioManager.Instance.ToggleBGM(!isOn);
     }
 
     public void ToggleSFX(bool isOn)
     {
-        AudioManager.Instance.ToggleSFX(isOn);
+        AudioManager.Instance.ToggleSFX(!isOn);
     }
 }

@@ -6,6 +6,8 @@ public class PauseMenuUI : MonoBehaviour
 {
     [Header("UI Panels")]
     public GameObject pauseMenuPanel;
+    public GameObject UIPanel;
+    public GameObject BossUIPanel;
 
     [Header("Buttons")]
     public Button resumeButton;
@@ -15,6 +17,7 @@ public class PauseMenuUI : MonoBehaviour
 
     void Start()
     {
+        AudioManager.Instance.PlayBGM("BGM");
         // Hide the pause menu initially
         pauseMenuPanel.SetActive(false);
 
@@ -42,6 +45,9 @@ public class PauseMenuUI : MonoBehaviour
         pauseMenuPanel.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        UIPanel.SetActive(false);
+        BossUIPanel.SetActive(false);
         // Optional: Play pause SFX or glitch FX
     }
 
@@ -50,8 +56,10 @@ public class PauseMenuUI : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f;
         pauseMenuPanel.SetActive(false);
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        UIPanel.SetActive(true);
+        BossUIPanel.SetActive(true);
+        /* Cursor.visible = false;
+         Cursor.lockState = CursorLockMode.Locked;*/
         // Optional: Resume ambient audio
     }
 
