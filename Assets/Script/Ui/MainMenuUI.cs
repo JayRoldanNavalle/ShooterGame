@@ -24,6 +24,7 @@ public class MainMenuUI : MonoBehaviour
 
     private void Start()
     {
+        
         // Hook up button events
         playButton.onClick.AddListener(PlayGame);
         controlsButton.onClick.AddListener(OpenControls);

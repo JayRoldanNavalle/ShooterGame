@@ -13,6 +13,7 @@ public class AudioSettingsUI : MonoBehaviour
 
     void Start()
     {
+       
         // Set default UI values from AudioManager
         bgmSlider.value = AudioManager.Instance.bgmVolume;
         sfxSlider.value = AudioManager.Instance.sfxVolume;

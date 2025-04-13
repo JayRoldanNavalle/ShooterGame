@@ -20,6 +20,10 @@ public class AudioManager : MonoBehaviour
     private Dictionary<string, AudioClip> bgmDict = new Dictionary<string, AudioClip>();
     private Dictionary<string, AudioClip> sfxDict = new Dictionary<string, AudioClip>();
 
+    private void Start()
+    {
+        AudioManager.Instance.PlayBGM("BGM");
+    }
     void Awake()
     {
         // Singleton pattern

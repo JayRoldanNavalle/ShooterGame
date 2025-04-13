@@ -17,7 +17,7 @@ public class PauseMenuUI : MonoBehaviour
 
     void Start()
     {
-        AudioManager.Instance.PlayBGM("BGM");
+        
         // Hide the pause menu initially
         pauseMenuPanel.SetActive(false);
 
